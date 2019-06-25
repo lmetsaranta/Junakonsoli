@@ -11,6 +11,7 @@ public class Ui {
     }
 
     public void kaynnista() {
+        // Käynnistetään käyttöliittymä Mainista
         System.out.println("Junainfo");
 
         System.out.println("1: Tarkasta juna-aikataulut kahden aseman välillä");
