@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 
 import java.net.URI;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,10 +33,8 @@ public class JSON_pohja_junat {
             CollectionType tarkempiListanTyyppi = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Juna.class);
             List<Juna> junat = mapper.readValue(url, tarkempiListanTyyppi);  // pelkkä List.class ei riitä tyypiksi
             System.out.println(junat.get(0).getTrainNumber());
-            junat.stream()
-                    .forEach(h -> System.out.println(h.getTrainType()));
             // Seuraavaa varten on toteutettava TimeTableRow luokka:
-//            System.out.println(junat.get(0).getTimeTableRows().get(0).getScheduledTime());
+            System.out.println(junat.get(0).getTimeTableRows().get(0).getScheduledTime());
             System.out.println("\n\n");
             System.out.println(junat.get(0));
 
@@ -173,10 +172,90 @@ class Juna {
     }
 }
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-class TimeTableRow {
-
-
-
-}
+//@JsonIgnoreProperties(ignoreUnknown = true)
+//class TimeTableRow {
+//    String stationShortCode;
+//    int stationUICCode;
+//    String countrycode;
+//    String type;
+//    boolean trainStopping;
+//    boolean commercialStop;
+//    String commercialTrack;
+////    Juna cancelled;
+//    Date scheduledTime;
+//    boolean unknownDelay;
+//
+//
+//    public String getStationShortCode() {
+//        return stationShortCode;
+//    }
+//
+//    public void setStationShortCode(String stationShortCode) {
+//        this.stationShortCode = stationShortCode;
+//    }
+//
+//    public int getStationUICCode() {
+//        return stationUICCode;
+//    }
+//
+//    public void setStationUICCode(int stationUICCode) {
+//        this.stationUICCode = stationUICCode;
+//    }
+//
+//    public String getCountrycode() {
+//        return countrycode;
+//    }
+//
+//    public void setCountrycode(String countrycode) {
+//        this.countrycode = countrycode;
+//    }
+//
+//    public String getType() {
+//        return type;
+//    }
+//
+//    public void setType(String type) {
+//        this.type = type;
+//    }
+//
+//    public boolean isTrainStopping() {
+//        return trainStopping;
+//    }
+//
+//    public void setTrainStopping(boolean trainStopping) {
+//        this.trainStopping = trainStopping;
+//    }
+//
+//    public boolean isCommercialStop() {
+//        return commercialStop;
+//    }
+//
+//    public void setCommercialStop(boolean commercialStop) {
+//        this.commercialStop = commercialStop;
+//    }
+//
+//    public String getCommercialTrack() {
+//        return commercialTrack;
+//    }
+//
+//    public void setCommercialTrack(String commercialTrack) {
+//        this.commercialTrack = commercialTrack;
+//    }
+//
+//    public Date getScheduledTime() {
+//        return scheduledTime;
+//    }
+//
+//    public void setScheduledTime(Date scheduledTime) {
+//        this.scheduledTime = scheduledTime;
+//    }
+//
+//    public boolean isUnknownDelay() {
+//        return unknownDelay;
+//    }
+//
+//    public void setUnknownDelay(boolean unknownDelay) {
+//        this.unknownDelay = unknownDelay;
+//    }
+//}
 
