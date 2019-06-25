@@ -1,4 +1,4 @@
 package fi.academy.junakonsoli;
 
-public class Nuutinluokka {
+public class TimeTableRow {
 }
