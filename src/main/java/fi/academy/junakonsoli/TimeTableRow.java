@@ -1,9 +1,9 @@
 package fi.academy.junakonsoli;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 public class TimeTableRow {
         String stationShortCode;
@@ -16,6 +16,7 @@ public class TimeTableRow {
         boolean cancelled;
         Date scheduledTime;
         boolean unknownDelay;
+        List<?> causes;
 
 
         public String getStationShortCode() {
@@ -96,6 +97,14 @@ public class TimeTableRow {
 
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
+    }
+
+    public List<?> getCauses() {
+        return causes;
+    }
+
+    public void setCauses(List<?> causes) {
+        this.causes = causes;
     }
 
     //Täältä poistettava static mahdollisesti
