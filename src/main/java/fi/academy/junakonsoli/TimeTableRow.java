@@ -106,7 +106,6 @@ public class TimeTableRow {
         this.cancelled = cancelled;
     }
 
-
     //Täältä poistettava static mahdollisesti
     public static LocalDateTime paivamaaraMuunto(Date aika) {
             return aika.toInstant()
