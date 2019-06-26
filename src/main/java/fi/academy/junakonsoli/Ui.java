@@ -10,13 +10,17 @@ public class Ui {
     private Scanner scanner;
     private String lahtoasema;
     private String maaraAsema;
+    private int junanNumero;
+    private Toiminnallisuus toiminta;
     private Asema asema;
 
     public Ui(Scanner scanner) {
         this.scanner = scanner;
         this.lahtoasema = "";
         this.maaraAsema = "";
+        this.junanNumero = 0;
         this.asema = new Asema();
+        this.toiminta = new Toiminnallisuus();
     }
 
     public void kaynnista() throws IOException { // heittää mainiin, pitäis varmaan käsitellä siellä?
@@ -40,7 +44,9 @@ public class Ui {
 
             case "2":
                 //toinen keissi tähän, seuraava lähtevä juna asemalta?
-                System.out.println("Odotellaan toiminnallisuutta");
+                System.out.println("Syötä junan numero");
+                junanNumero = Integer.valueOf(scanner.nextLine());
+                tulostaJunanTiedot(junanNumero);
                 break;
             case "3":
                 //seuraava saapuva juna
@@ -53,18 +59,22 @@ public class Ui {
 
     // Muokataan syötettä -> trimmaus ja jos kaksi osaa niin lisätään se mukaan ja palautetaan.
     private String muokkaa(String syote) {
-        String [] asemanNimenosat = syote.split(" ");
+        String[] asemanNimenosat = syote.split(" ");
         String asemanNimi = asemanNimenosat[0].trim().toLowerCase();
         asemanNimi = asemanNimi.substring(0, 1).toUpperCase() + asemanNimi.substring(1);
-        if (asemanNimenosat.length==2) {
+        if (asemanNimenosat.length == 2) {
             return asemanNimi + " " + asemanNimenosat[1];
         }
         return asemanNimi;
     }
 
     public void tulostaAikataulut(String lahtoasema, String maaraAsema) {
+        Toiminnallisuus.haeJunatAsemienPerusteella(lahtoasema, maaraAsema);
 
-        JSON_pohja_junat.lueJunanJSONData(lahtoasema, maaraAsema);
+    }
+
+    public void tulostaJunanTiedot(int numero) {
+        Toiminnallisuus.haeJunaNumeronPerusteella(numero);
     }
 
 }
