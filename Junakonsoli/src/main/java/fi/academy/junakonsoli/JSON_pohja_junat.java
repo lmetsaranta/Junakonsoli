@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,8 +25,7 @@ public class JSON_pohja_junat {
         lueJunanJSONData();
     }
 
-
-    private static void lueJunanJSONData() {
+    private static void lueJunanJSONData(){
         String baseurl = "https://rata.digitraffic.fi/api/v1";
         try {
             URL url = new URL(URI.create(String.format("%s/live-trains/station/HKI/LH", baseurl)).toASCIIString());
