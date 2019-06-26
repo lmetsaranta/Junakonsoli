@@ -112,6 +112,9 @@ public class TimeTableRow {
 
     //Tässäkin turha static
     public static String kellonaika(Date aika) {
+            if (paivamaaraMuunto(aika).getMinute() < 10) {
+                return paivamaaraMuunto(aika).getHour() + ":0" + paivamaaraMuunto(aika).getMinute();
+            }
             return paivamaaraMuunto(aika).getHour() + ":" + paivamaaraMuunto(aika).getMinute();
     }
 
