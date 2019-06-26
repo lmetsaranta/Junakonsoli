@@ -24,33 +24,36 @@ public class Ui {
 
         System.out.println("1: Tarkasta juna-aikataulut kahden aseman välillä");
 
-        String komento = scanner.nextLine();
+        do {
+            String komento = scanner.nextLine();
 
-        switch (komento) {
-            case "1":
-                System.out.println("Syötä lähtöasema:");
-                String asemanNimi = muokkaa(scanner.nextLine());
-                lahtoasema = asema.haeAsemanKoodi(asemanNimi);
-                System.out.println("Syötä määräasema:");
-                asemanNimi = muokkaa(scanner.nextLine());
-                maaraAsema = asema.haeAsemanKoodi(asemanNimi);
+            switch (komento) {
+                case "1":
+                    System.out.println("Syötä lähtöasema:");
+                    String asemanNimi = muokkaa(scanner.nextLine());
+                    lahtoasema = asema.haeAsemanKoodi(asemanNimi);
+                    System.out.println("Syötä määräasema:");
+                    asemanNimi = muokkaa(scanner.nextLine());
+                    maaraAsema = asema.haeAsemanKoodi(asemanNimi);
 
-                tulostaAikataulut(lahtoasema, maaraAsema);
-                break;
+                    tulostaAikataulut(lahtoasema, maaraAsema);
+                    break;
 
-            case "2":
-                //toinen keissi tähän, seuraava lähtevä juna asemalta?
-                System.out.println("Odotellaan toiminnallisuutta");
-                break;
-            case "3":
-                //seuraava saapuva juna
-                break;
-            case "4":
-                //asemalta lähteneet
-                break;
-        }
+                case "2":
+                    //toinen keissi tähän, seuraava lähtevä juna asemalta?
+                    System.out.println("Odotellaan toiminnallisuutta");
+                    break;
+                case "3":
+                    //seuraava saapuva juna
+                    break;
+                case "4":
+                    //asemalta lähteneet
+                    break;
+            }
+        } while ();
     }
 
+    // Muokataan syötettä -> trimmaus ja jos kaksi osaa niin lisätään se mukaan ja palautetaan.
     private String muokkaa(String syote) {
         String [] asemanNimenosat = syote.split(" ");
         String asemanNimi = asemanNimenosat[0].trim().toLowerCase();
