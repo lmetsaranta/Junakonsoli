@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 
 public class Asema {
-    //luo asemienhakuun tarvittavan HashMapin
+    //luo asemien hakuun tarvittavan HashMapin
     private HashMap<String, String> asemat = new HashMap<>();
 
     //hakee aseman kolmikirjaimisen koodin aseman nimen perusteella
