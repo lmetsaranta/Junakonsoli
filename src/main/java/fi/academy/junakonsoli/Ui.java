@@ -28,7 +28,12 @@ public class Ui {
 
         String komento="";
         do {
-            System.out.println("1: Tarkasta juna-aikataulut kahden aseman välillä");
+            System.out.println(
+                    "Toiminnot: \n"+
+                    "1: Tarkasta juna-aikataulut kahden aseman välillä \n" +
+                    "2: Hae yksittäisen junan aikataulua numeron perusteella \n" +
+                    "0: Poistu junakonsolista");
+
             komento = scanner.nextLine();
             switch (komento) {
                 case "1":
@@ -57,7 +62,9 @@ public class Ui {
                     //asemalta lähteneet
                     break;
             }
-        } while (komento != "0");
+        } while (!komento.equals("0"));
+
+        System.out.println("Kiitos ja näkemiin!");
     }
 
     // Muokataan syötettä -> trimmaus ja jos kaksi osaa niin lisätään se mukaan ja palautetaan.
