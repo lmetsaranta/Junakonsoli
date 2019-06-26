@@ -20,8 +20,9 @@ public class Juna {
     long version;
 
     @Override
+    // Tulostetaan junan tiedot muodossa "Long-distance IC111 HKI 26.6.2019 klo 10.24 - TPE klo 11.55"
     public String toString() {
-        return trainCategory + " " + trainType + trainNumber + " " + timeTableRows.get(0).stationShortCode + " " + timeTableRows.get(0).scheduledTime + " - " + "TPE" + " " + "2.9.2019 klo 16.40";
+        return trainCategory + " " + trainType + trainNumber + " " + timeTableRows.get(0).stationShortCode + " " + paivamaara(timeTableRows.get(0).scheduledTime) + " " + kellonaika(timeTableRows.get(0).scheduledTime) + " - " + getPaateasema(asemanNimi) + " " + kellonaika(getSaapumisaika(asemanNimi));
     }
     /* Haetaan pääteaseman mukaan kyseisen aseman tunnus. (Tässä vaiheessa vielä turha metodi kun haetaan tunnuksella tunnus..)
     Tehdään myöhemmin ominaisuus, että toimii haulla "Helsinki" --> palauttaa "HKI".
