@@ -5,9 +5,15 @@ import java.util.Scanner;
 public class Ui {
 
     private Scanner scanner;
+    private String lahtoasema;
+    private String maaraAsema;
+    private JSON_pohja_junat toiminta;
 
     public Ui(Scanner scanner) {
         this.scanner = scanner;
+        this.lahtoasema="";
+        this.maaraAsema="";
+        //this.toiminta = new JSON_pohja_junat();
     }
 
     public void kaynnista() {
@@ -20,27 +26,30 @@ public class Ui {
 
         switch (komento) {
             case "1":
-               lisaaAsemat();
-               tulostaAikataulut();
+                System.out.println("Syötä lähtöasema:");
+                lahtoasema = scanner.nextLine();
+                System.out.println("Syötä määräasema:");
+                maaraAsema = scanner.nextLine();
+               tulostaAikataulut(lahtoasema, maaraAsema);
                break;
 
             case "2":
-                //toinen keissi tähän
+                //toinen keissi tähän, seuraava lähtevä juna asemalta?
                 System.out.println("Odotellaan toiminnallisuutta");
+                break;
+            case "3":
+                //seuraava saapuva juna
+                break;
+            case "4":
+                //asemalta lähteneet
+                break;
         }
     }
 
-    public void lisaaAsemat() {
-        System.out.println("Lisää lähtöaseman lyhenne");
-        String lahtoAsemanLyhenne = scanner.nextLine();
-        System.out.println("Syötä määräaseman lyhenne");
-        String maaraAsemanLyhenne = scanner.nextLine();
-
-        //luo näillä parametreilla uusi asema
-    }
-
-    public void tulostaAikataulut() {
+    public void tulostaAikataulut(String lahtoasema, String maaraAsema) {
         // tulosta junien aikataulut asemien välillä
+
+
     }
 
 
