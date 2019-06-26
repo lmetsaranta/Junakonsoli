@@ -1,11 +1,6 @@
 package fi.academy.junakonsoli;
 
 import java.io.IOException;
-<<<<<<< HEAD
-=======
-import java.util.Arrays;
-import java.util.List;
->>>>>>> master
 import java.util.Scanner;
 
 public class Ui {
@@ -70,9 +65,6 @@ public class Ui {
         return asemanNimi;
     }
 
-<<<<<<< HEAD
-        JSON_pohja_junat.lueJunanJSONData(lahtoasema, maaraAsema);
-=======
     public void tulostaAikataulut(String lahtoasema, String maaraAsema) {
         Toiminnallisuus.haeJunatAsemienPerusteella(lahtoasema, maaraAsema);
 
@@ -80,7 +72,7 @@ public class Ui {
 
     public void tulostaJunanTiedot(int numero) {
         Toiminnallisuus.haeJunaNumeronPerusteella(numero);
->>>>>>> master
+
     }
 
 }
