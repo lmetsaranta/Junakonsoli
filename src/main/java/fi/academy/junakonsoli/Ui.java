@@ -5,15 +5,17 @@ import java.util.Scanner;
 public class Ui {
 
     private Scanner scanner;
-    private JSON_pohja_junat junat = new JSON_pohja_junat();
+    private Toiminnallisuus junat = new Toiminnallisuus();
     private String lahtoasema;
     private String maaraAsema;
-    private JSON_pohja_junat toiminta;
+    private int junanNumero;
+    private Toiminnallisuus toiminta;
 
     public Ui(Scanner scanner) {
         this.scanner = scanner;
         this.lahtoasema="";
         this.maaraAsema="";
+        this.junanNumero = 0;
         //this.toiminta = new JSON_pohja_junat();
     }
 
@@ -36,7 +38,9 @@ public class Ui {
 
             case "2":
                 //toinen keissi tähän, seuraava lähtevä juna asemalta?
-                System.out.println("Odotellaan toiminnallisuutta");
+                System.out.println("Syötä junan numero");
+                junanNumero = Integer.valueOf(scanner.nextLine());
+                tulostaJunanTiedot(junanNumero);
                 break;
             case "3":
                 //seuraava saapuva juna
@@ -48,7 +52,11 @@ public class Ui {
     }
 
     public void tulostaAikataulut(String lahtoasema, String maaraAsema) {
-        JSON_pohja_junat.lueJunanJSONData(lahtoasema, maaraAsema);
+        Toiminnallisuus.haeJunatAsemienPerusteella(lahtoasema, maaraAsema);
+
+    }
+    public void tulostaJunanTiedot(int numero) {
+        Toiminnallisuus.haeJunaNumeronPerusteella(numero);
 
     }
 

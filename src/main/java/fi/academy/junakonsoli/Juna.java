@@ -22,6 +22,7 @@ public class Juna {
     String trainType;
     long version;
 
+// Tulostaa junan tiedot "Long-distance IC111 HKI 26.6.2019 klo 10.24 - TPE klo 11.55" -muodossa. Saa parametrina pääteaseman tunnuksen.
     public String tulostaJuna(String paate) {
         String paateasema = paate;
         return trainCategory + " " + trainType + trainNumber + " " + timeTableRows.get(0).stationShortCode + " " + paivamaara(timeTableRows.get(0).scheduledTime) + " " + kellonaika(timeTableRows.get(0).scheduledTime) + " - " + getPaateasema(paate) + " " + kellonaika(getSaapumisaika(paate));
