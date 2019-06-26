@@ -5,18 +5,24 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 
 public class Asema {
-    //luo asemienhakuun tarvittavan HashMapin
+    //luo asemien hakuun tarvittavan HashMapin
     private HashMap<String, String> asemat = new HashMap<>();
 
     //hakee aseman kolmikirjaimisen koodin aseman nimen perusteella
     public String haeAsemanKoodi(String nimi) throws IOException {
         lueAsemienMetaData();
+        if (Stream.of("Hanko", "Helsinki", "Ilmala", "Imatra", "Joensuu", "Järvenpää", "Kauklahti", "Kotka", "Kouvola", "Kuopio", "Oulu",
+                "Pasila", "Pieksämäki", "Riihimäki", "Savonlinna", "Seinäjoki", "Tampere",
+                "Tikkurila", "Tornio", "Turku", "Vainikkala").anyMatch(nimi :: equalsIgnoreCase)){
+                nimi = nimi + " asema";
+        }
         String koodi = asemat.get(nimi);
         return koodi;
     }

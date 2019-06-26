@@ -10,8 +10,8 @@ public class AsemaTest {
 
     @Test
     public void TestaaHaeAsemanKoodi() throws IOException {
-        String tulos = "DRA";
-        String actual = asema.haeAsemanKoodi("Dragsvik");
+        String tulos = "HKI";
+        String actual = asema.haeAsemanKoodi("Helsinki");
         assertEquals(tulos,actual);
     }
 
