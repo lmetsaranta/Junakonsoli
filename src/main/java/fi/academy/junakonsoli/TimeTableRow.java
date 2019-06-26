@@ -18,8 +18,15 @@ public class TimeTableRow {
         boolean unknownDelay;
         List<?> causes;
 
+    public List<?> getCauses() {
+        return causes;
+    }
 
-        public String getStationShortCode() {
+    public void setCauses(List<?> causes) {
+        this.causes = causes;
+    }
+
+    public String getStationShortCode() {
             return stationShortCode;
         }
 
