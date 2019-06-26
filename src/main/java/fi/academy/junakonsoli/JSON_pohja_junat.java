@@ -4,9 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+
 import java.net.URI;
 import java.net.URL;
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,10 +25,10 @@ Asentuu Jacksonin databind, sekä core ja annotations
  */
 
 public class JSON_pohja_junat {
+
     public static void main(String[] args) {
         lueJunanJSONData();
     }
-
 
     private static void lueJunanJSONData() {
         String baseurl = "https://rata.digitraffic.fi/api/v1";
@@ -34,7 +39,11 @@ public class JSON_pohja_junat {
             List<Juna> junat = mapper.readValue(url, tarkempiListanTyyppi);  // pelkkä List.class ei riitä tyypiksi
             System.out.println(junat.get(0).getTrainNumber());
             // Seuraavaa varten on toteutettava TimeTableRow luokka:
+
+            //System.out.println(junat.get(0).getTimeTableRows().get(0).getScheduledTime());
+
             System.out.println(TimeTableRow.paivamaara(junat.get(0).getTimeTableRows().get(0).getScheduledTime()) + " ja " + TimeTableRow.kellonaika(junat.get(0).getTimeTableRows().get(0).getScheduledTime()));
+
             System.out.println("\n\n");
             System.out.println(junat.get(0));
 
@@ -42,9 +51,7 @@ public class JSON_pohja_junat {
             System.out.println(ex);
         }
     }
-
 }
-
 
 //class Juna {
 //    boolean cancelled;
