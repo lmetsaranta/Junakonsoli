@@ -24,12 +24,8 @@ Etsi "jackson-databind", valitse esimerkiksi versio 2.0.5
 Asentuu Jacksonin databind, sekä core ja annotations
  */
 
-public class JSON_pohja_junat {
-
-
-    public static void lueJunanJSONData(String lahto, String paate) {
-        String lahtoasema = lahto;
-        String paateasema = paate;
+public class Toiminnallisuus {
+    public static void haeJunatAsemienPerusteella(String lahto, String paate) {
         String baseurl = "https://rata.digitraffic.fi/api/v1";
         try {
             URL url = new URL(URI.create(String.format("%s/live-trains/station/" + lahto + "/" + paate, baseurl)).toASCIIString());
@@ -42,7 +38,20 @@ public class JSON_pohja_junat {
             System.out.println(ex);
         }
     }
+    public static void haeJunaNumeronPerusteella(int numero) {
+        int junannumero = numero;
+        String baseurl = "https://rata.digitraffic.fi/api/v1";
+        try {
+            URL url = new URL(URI.create(String.format("%s/trains/latest/" + junannumero, baseurl)).toASCIIString());
+            ObjectMapper mapper = new ObjectMapper();
+            CollectionType tarkempiListanTyyppi = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Juna.class);
+            List<Juna> junat = mapper.readValue(url, tarkempiListanTyyppi);  // pelkkä List.class ei riitä tyypiksi
+            junat.stream()
+                    .forEach(j -> System.out.println(j));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
 
 }
-
 
