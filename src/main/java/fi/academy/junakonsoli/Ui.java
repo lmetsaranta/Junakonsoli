@@ -24,33 +24,31 @@ public class Ui {
 
         System.out.println("1: Tarkasta juna-aikataulut kahden aseman välillä");
 
-        do {
-            String komento = scanner.nextLine();
+        String komento = scanner.nextLine();
 
-            switch (komento) {
-                case "1":
-                    System.out.println("Syötä lähtöasema:");
-                    String asemanNimi = muokkaa(scanner.nextLine());
-                    lahtoasema = asema.haeAsemanKoodi(asemanNimi);
-                    System.out.println("Syötä määräasema:");
-                    asemanNimi = muokkaa(scanner.nextLine());
-                    maaraAsema = asema.haeAsemanKoodi(asemanNimi);
+        switch (komento) {
+            case "1":
+                System.out.println("Syötä lähtöasema:");
+                String asemanNimi = muokkaa(scanner.nextLine());
+                lahtoasema = asema.haeAsemanKoodi(asemanNimi);
+                System.out.println("Syötä määräasema:");
+                asemanNimi = muokkaa(scanner.nextLine());
+                maaraAsema = asema.haeAsemanKoodi(asemanNimi);
 
-                    tulostaAikataulut(lahtoasema, maaraAsema);
-                    break;
+                tulostaAikataulut(lahtoasema, maaraAsema);
+                break;
 
-                case "2":
-                    //toinen keissi tähän, seuraava lähtevä juna asemalta?
-                    System.out.println("Odotellaan toiminnallisuutta");
-                    break;
-                case "3":
-                    //seuraava saapuva juna
-                    break;
-                case "4":
-                    //asemalta lähteneet
-                    break;
-            }
-        } while ();
+            case "2":
+                //toinen keissi tähän, seuraava lähtevä juna asemalta?
+                System.out.println("Odotellaan toiminnallisuutta");
+                break;
+            case "3":
+                //seuraava saapuva juna
+                break;
+            case "4":
+                //asemalta lähteneet
+                break;
+        }
     }
 
     // Muokataan syötettä -> trimmaus ja jos kaksi osaa niin lisätään se mukaan ja palautetaan.
