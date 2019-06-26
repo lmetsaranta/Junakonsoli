@@ -12,8 +12,6 @@ public class UiTest {
     @Test
     public void tyhjanAsemanLisaaminenEiOnnistu() {
         Ui ui = new Ui(sc);
-        String lahtoasemaInput = "";
-        String maaraAsemaInput = "";
 
     }
 
