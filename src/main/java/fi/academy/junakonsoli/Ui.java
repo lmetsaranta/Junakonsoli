@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Ui {
 
     private Scanner scanner;
+    private JSON_pohja_junat junat = new JSON_pohja_junat();
     private String lahtoasema;
     private String maaraAsema;
     private JSON_pohja_junat toiminta;
@@ -47,10 +48,8 @@ public class Ui {
     }
 
     public void tulostaAikataulut(String lahtoasema, String maaraAsema) {
-        // tulosta junien aikataulut asemien välillä
-
+        JSON_pohja_junat.lueJunanJSONData(lahtoasema, maaraAsema);
 
     }
-
 
 }
