@@ -36,7 +36,7 @@ public class JSON_pohja_junat {
             junat.stream()
                     .forEach(j -> System.out.println(j));
             // Seuraavaa varten on toteutettava TimeTableRow luokka:
-            System.out.println(junat.get(0).getTimeTableRows().get(0).getScheduledTime());
+            System.out.println(TimeTableRow.paivamaara(junat.get(0).getTimeTableRows().get(0).getScheduledTime()) + " ja " + TimeTableRow.kellonaika(junat.get(0).getTimeTableRows().get(0).getScheduledTime()));
             System.out.println("\n\n");
             System.out.println(junat.get(0));
 
