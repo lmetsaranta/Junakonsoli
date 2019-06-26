@@ -3,6 +3,9 @@ package fi.academy.junakonsoli;
 import java.util.Date;
 import java.util.List;
 
+import static fi.academy.junakonsoli.TimeTableRow.kellonaika;
+import static fi.academy.junakonsoli.TimeTableRow.paivamaara;
+
 public class Juna {
     boolean cancelled;
     String commuterLineID;
@@ -19,9 +22,14 @@ public class Juna {
     String trainType;
     long version;
 
+    public String tulostaJuna(String paate) {
+        String paateasema = paate;
+        return trainCategory + " " + trainType + trainNumber + " " + timeTableRows.get(0).stationShortCode + " " + paivamaara(timeTableRows.get(0).scheduledTime) + " " + kellonaika(timeTableRows.get(0).scheduledTime) + " - " + getPaateasema(paate) + " " + kellonaika(getSaapumisaika(paate));
+    }
     @Override
+    // Tulostetaan junan tiedot muodossa "Long-distance IC111 HKI 26.6.2019 klo 10.24 - TPE klo 11.55"
     public String toString() {
-        return trainCategory + " " + trainType + trainNumber + " " + timeTableRows.get(0).stationShortCode + " " + timeTableRows.get(0).scheduledTime + " - " + "TPE" + " " + "2.9.2019 klo 16.40";
+        return trainCategory + " " + trainType + trainNumber + " " + timeTableRows.get(0).stationShortCode + " " + paivamaara(timeTableRows.get(0).scheduledTime) + " " + kellonaika(timeTableRows.get(0).scheduledTime) + " - " + getPaateasema("TPE") + " " + kellonaika(getSaapumisaika("HKI"));
     }
     /* Haetaan pääteaseman mukaan kyseisen aseman tunnus. (Tässä vaiheessa vielä turha metodi kun haetaan tunnuksella tunnus..)
     Tehdään myöhemmin ominaisuus, että toimii haulla "Helsinki" --> palauttaa "HKI".
