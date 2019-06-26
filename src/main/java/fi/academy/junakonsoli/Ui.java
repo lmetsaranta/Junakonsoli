@@ -8,13 +8,11 @@ public class Ui {
     private JSON_pohja_junat junat = new JSON_pohja_junat();
     private String lahtoasema;
     private String maaraAsema;
-    private JSON_pohja_junat toiminta;
 
     public Ui(Scanner scanner) {
         this.scanner = scanner;
         this.lahtoasema="";
         this.maaraAsema="";
-        //this.toiminta = new JSON_pohja_junat();
     }
 
     public void kaynnista() {
@@ -48,7 +46,9 @@ public class Ui {
     }
 
     public void tulostaAikataulut(String lahtoasema, String maaraAsema) {
+
         JSON_pohja_junat.lueJunanJSONData(lahtoasema, maaraAsema);
+
 
     }
 
