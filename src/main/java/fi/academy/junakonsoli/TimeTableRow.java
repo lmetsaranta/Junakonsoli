@@ -1,5 +1,8 @@
 package fi.academy.junakonsoli;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class TimeTableRow {
@@ -94,4 +97,22 @@ public class TimeTableRow {
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
     }
+
+    //Täältä poistettava static mahdollisesti
+    public static LocalDateTime paivamaaraMuunto(Date aika) {
+            return aika.toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDateTime();
+    }
+
+    //Tässä myös turha static
+    public static String paivamaara(Date aika) {
+            return paivamaaraMuunto(aika).getDayOfMonth() + "." + paivamaaraMuunto(aika).getMonthValue() + "." + paivamaaraMuunto(aika).getYear();
+    }
+
+    //Tässäkin turha static
+    public static String kellonaika(Date aika) {
+            return paivamaaraMuunto(aika).getHour() + ":" + paivamaaraMuunto(aika).getMinute();
+    }
+
 }
