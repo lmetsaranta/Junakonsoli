@@ -1,8 +1,6 @@
 package fi.academy.junakonsoli;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -78,6 +76,7 @@ public class Ui {
 
     public void tulostaJunanTiedot(int numero) {
         Toiminnallisuus.haeJunaNumeronPerusteella(numero);
+
     }
 
 }
