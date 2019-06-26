@@ -75,11 +75,11 @@ public class Asema {
         JSONArray junat = new JSONArray(sisalto);
         for (int i = 0; i < junat.length(); i++) {
             JSONObject juna = junat.getJSONObject(i);
-    //hakee datasta aseman nimet, koodit ja tiedon onko matkustaja-asema
+            //hakee datasta aseman nimet, koodit ja tiedon onko matkustaja-asema
             String asemanNimi = juna.getString("stationName");
             String asemanKoodi = juna.getString("stationShortCode");
             boolean matkustajaAsema = juna.getBoolean("passengerTraffic");
-    //jos kyseessä on matkustaja-asema, lisää nimet ja koodit hashmapiin
+            //jos kyseessä on matkustaja-asema, lisää nimet ja koodit hashmapiin
             if (matkustajaAsema == true) {
                 asemat.put(asemanNimi, asemanKoodi);
             }
