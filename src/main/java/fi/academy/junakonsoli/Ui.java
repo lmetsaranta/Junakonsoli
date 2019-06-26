@@ -1,5 +1,6 @@
 package fi.academy.junakonsoli;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
@@ -48,8 +49,6 @@ public class Ui {
     public void tulostaAikataulut(String lahtoasema, String maaraAsema) {
 
         JSON_pohja_junat.lueJunanJSONData(lahtoasema, maaraAsema);
-
-
     }
 
 }
