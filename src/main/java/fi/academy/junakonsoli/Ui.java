@@ -48,7 +48,7 @@ public class Ui {
     }
 
     public void tulostaAikataulut(String lahtoasema, String maaraAsema) {
-        // tulosta junien aikataulut asemien välillä
+        JSON_pohja_junat.lueJunanJSONData(lahtoasema, maaraAsema);
 
     }
 
