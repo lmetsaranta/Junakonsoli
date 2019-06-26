@@ -4,9 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+
 import java.net.URI;
 import java.net.URL;
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,3 +44,5 @@ public class JSON_pohja_junat {
     }
 
 }
+
+
