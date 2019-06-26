@@ -1,26 +1,29 @@
 package fi.academy.junakonsoli;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
 
     private Scanner scanner;
-    private Toiminnallisuus junat = new Toiminnallisuus();
     private String lahtoasema;
     private String maaraAsema;
     private int junanNumero;
     private Toiminnallisuus toiminta;
+    private Asema asema;
 
     public Ui(Scanner scanner) {
         this.scanner = scanner;
-        this.lahtoasema="";
-        this.maaraAsema="";
+        this.lahtoasema = "";
+        this.maaraAsema = "";
         this.junanNumero = 0;
-        //this.toiminta = new JSON_pohja_junat();
+        this.asema = new Asema();
+        this.toiminta = new Toiminnallisuus();
     }
 
-    public void kaynnista() {
-        // Käynnistetään käyttöliittymä Mainista
+    public void kaynnista() throws IOException { // heittää mainiin, pitäis varmaan käsitellä siellä?
         System.out.println("Junainfo");
 
         System.out.println("1: Tarkasta juna-aikataulut kahden aseman välillä");
@@ -30,11 +33,14 @@ public class Ui {
         switch (komento) {
             case "1":
                 System.out.println("Syötä lähtöasema:");
-                lahtoasema = scanner.nextLine();
+                String asemanNimi = muokkaa(scanner.nextLine());
+                lahtoasema = asema.haeAsemanKoodi(asemanNimi);
                 System.out.println("Syötä määräasema:");
-                maaraAsema = scanner.nextLine();
-               tulostaAikataulut(lahtoasema, maaraAsema);
-               break;
+                asemanNimi = muokkaa(scanner.nextLine());
+                maaraAsema = asema.haeAsemanKoodi(asemanNimi);
+
+                tulostaAikataulut(lahtoasema, maaraAsema);
+                break;
 
             case "2":
                 //toinen keissi tähän, seuraava lähtevä juna asemalta?
@@ -51,13 +57,23 @@ public class Ui {
         }
     }
 
+    private String muokkaa(String syote) {
+        String[] asemanNimenosat = syote.split(" ");
+        String asemanNimi = asemanNimenosat[0].trim().toLowerCase();
+        asemanNimi = asemanNimi.substring(0, 1).toUpperCase() + asemanNimi.substring(1);
+        if (asemanNimenosat.length == 2) {
+            return asemanNimi + " " + asemanNimenosat[1];
+        }
+        return asemanNimi;
+    }
+
     public void tulostaAikataulut(String lahtoasema, String maaraAsema) {
         Toiminnallisuus.haeJunatAsemienPerusteella(lahtoasema, maaraAsema);
 
     }
+
     public void tulostaJunanTiedot(int numero) {
         Toiminnallisuus.haeJunaNumeronPerusteella(numero);
-
     }
 
 }
