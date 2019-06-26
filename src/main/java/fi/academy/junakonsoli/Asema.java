@@ -20,8 +20,10 @@ public class Asema {
         lueAsemienMetaData();
         if (Stream.of("Hanko", "Helsinki", "Ilmala", "Imatra", "Joensuu", "Järvenpää", "Kauklahti", "Kotka", "Kouvola", "Kuopio", "Oulu",
                 "Pasila", "Pieksämäki", "Riihimäki", "Savonlinna", "Seinäjoki", "Tampere",
-                "Tikkurila", "Tornio", "Turku", "Vainikkala").anyMatch(nimi :: equalsIgnoreCase)){
+                "Tikkurila", "Turku", "Vainikkala").anyMatch(nimi :: equalsIgnoreCase)){
                 nimi = nimi + " asema";
+        } else if (nimi.equals("Tornio")){
+            nimi = nimi + "-Itäinen";
         }
         String koodi = asemat.get(nimi);
         return koodi;
