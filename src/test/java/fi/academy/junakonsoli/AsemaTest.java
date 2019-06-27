@@ -1,10 +1,10 @@
+//Created by: Kirsi Kujala
+
 package fi.academy.junakonsoli;
 
 import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.*;
-
-//Tekijä: Kirsi
 
 public class AsemaTest {
 
