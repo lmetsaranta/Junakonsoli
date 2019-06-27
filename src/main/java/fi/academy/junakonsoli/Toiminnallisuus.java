@@ -1,3 +1,5 @@
+/* Created by Lennu Metsäranta. */
+
 package fi.academy.junakonsoli;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
