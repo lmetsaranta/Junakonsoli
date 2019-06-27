@@ -1,4 +1,4 @@
-// Nuutti
+// Nuutti!
 package fi.academy.junakonsoli;
 
 import java.time.LocalDateTime;
