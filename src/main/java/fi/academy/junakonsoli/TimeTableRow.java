@@ -18,14 +18,6 @@ public class TimeTableRow {
         boolean unknownDelay;
         List<?> causes;
 
-    public List<?> getCauses() {
-        return causes;
-    }
-
-    public void setCauses(List<?> causes) {
-        this.causes = causes;
-    }
-
     public String getStationShortCode() {
             return stationShortCode;
         }
@@ -104,6 +96,14 @@ public class TimeTableRow {
 
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
+    }
+
+    public List<?> getCauses() {
+        return causes;
+    }
+
+    public void setCauses(List<?> causes) {
+        this.causes = causes;
     }
 
     //Täältä poistettava static mahdollisesti
