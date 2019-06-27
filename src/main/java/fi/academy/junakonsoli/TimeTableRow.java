@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
+// Luokka on Juna-luokan apuluokka.
 public class TimeTableRow {
         String stationShortCode;
         int stationUICCode;
