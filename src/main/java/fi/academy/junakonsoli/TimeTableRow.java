@@ -152,19 +152,19 @@ public class TimeTableRow {
         this.estimateSource = estimateSource;
     }
 
-    //Täältä poistettava static mahdollisesti
+    //Muuntaa päivämäärän Datesta LocalDateTimeen.
     public static LocalDateTime paivamaaraMuunto(Date aika) {
             return aika.toInstant()
                     .atZone(ZoneId.systemDefault())
                     .toLocalDateTime();
     }
 
-    //Tässä myös turha static
+    //Palauttaa suomalaisen päivämäärän.
     public static String paivamaara(Date aika) {
             return paivamaaraMuunto(aika).getDayOfMonth() + "." + paivamaaraMuunto(aika).getMonthValue() + "." + paivamaaraMuunto(aika).getYear();
     }
 
-    //Tässäkin turha static
+    //Palauttaa Suomalaisen kellonajan.
     public static String kellonaika(Date aika) {
             if (paivamaaraMuunto(aika).getMinute() < 10) {
                 return paivamaaraMuunto(aika).getHour() + ":0" + paivamaaraMuunto(aika).getMinute();
