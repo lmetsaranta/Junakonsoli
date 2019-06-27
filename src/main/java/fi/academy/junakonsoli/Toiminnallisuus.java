@@ -20,7 +20,7 @@ public class Toiminnallisuus {
     lähtö- ja pääteaseman perusteella. Metodi saa parametrina lähtö- ja pääteaseman tunnukset. */
     public static void haeJunatAsemienPerusteella(String lahto, String paate) {
         if (lahto.equals(paate)) {
-            System.out.println("Virheellinen syöte");
+            System.err.println("Virheellinen syöte");
         } else {
             String baseurl = "https://rata.digitraffic.fi/api/v1";
             try {
@@ -31,7 +31,7 @@ public class Toiminnallisuus {
                 junat.stream()
                         .forEach(j -> System.out.println(j.tulostaJuna(lahto, paate)));
             } catch (Exception ex) {
-                System.out.println("Valitettavasti valitsemaltasi väliltä ei löytynyt yhtään junaa.");
+                System.err.println("Valitettavasti valitsemaltasi väliltä ei löytynyt yhtään junaa.");
             }
         }
     }
@@ -50,7 +50,7 @@ public class Toiminnallisuus {
             junat.stream()
                     .forEach(j -> System.out.println(j));
         } catch (Exception ex) {
-            System.out.println(ex);
+            System.err.println("Antamallasi numerolla ei löytynyt yhtään junaa.");
         }
     }
 
