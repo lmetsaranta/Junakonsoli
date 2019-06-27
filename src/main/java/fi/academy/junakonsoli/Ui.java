@@ -1,3 +1,4 @@
+//Heikki, mostly..
 package fi.academy.junakonsoli;
 
 import java.util.Scanner;
@@ -5,7 +6,7 @@ import java.util.Scanner;
 public class Ui {
 
     private Scanner scanner;
-    private String lahtoasema;
+    private String asemanNimi;
     private String maaraAsema;
     private int junanNumero;
     private Toiminnallisuus toiminta;
@@ -13,33 +14,35 @@ public class Ui {
 
     public Ui(Scanner scanner) {
         this.scanner = scanner;
-        this.lahtoasema = "";
+        this.asemanNimi = "";
         this.maaraAsema = "";
         this.junanNumero = 0;
         this.asema = new Asema();
         this.toiminta = new Toiminnallisuus();
     }
 
-    public void kaynnista() { // heittää mainiin, pitäis varmaan käsitellä siellä?
-
-        System.out.println("Junainfo");
-
+    public void kaynnista() {
         String komento = "";
+
         do {
-            System.out.println(
+            System.out.print(
                     "\nToiminnot: \n" +
                             "1: Tarkasta juna-aikataulut kahden aseman välillä \n" +
                             "2: Hae yksittäisen junan aikataulua numeron perusteella \n" +
                             "3: Hae liikkeellä olevat junat kahden aseman välillä \n" +
                             "4: Listaa kaikki liikkeellä olevat junat \n" +
-                            "0: Poistu junakonsolista");
+                            "0: Poistu junakonsolista \n\n" +
+                            "Valitse toiminto: ");
 
+            String lahtoAsema = "Syötä lähtöasema: ";
+            String maaraAsema = "Syötä määräasema: ";
             komento = scanner.nextLine();
             switch (komento) {
                 case "1":
                     // metodin parametreina metodit, jotka kysyvät aseman nimen ja palauttavat sitä vastaavan koodin, joilla haetaan aikataulut
-                    tulostaAikataulut(syotaLahtoasema(), syotaMaaraAsema());
+                    tulostaAikataulut(syotaAsema(lahtoAsema), syotaAsema(maaraAsema));
                     System.out.println("");
+                    komento="";
                     break;
 
                 case "2":
@@ -56,8 +59,8 @@ public class Ui {
 
                     break;
                 case "3":
-                    //tähän tulee liikkeessä olevat junat asemien perusteella
-                    Toiminnallisuus.haeLiikkeessaOlevatJunatAsemienPerusteella(syotaLahtoasema(), syotaMaaraAsema());
+                    //tulostaa liikkeessä olevat junat asemien perusteella
+                    Toiminnallisuus.haeLiikkeessaOlevatJunatAsemienPerusteella(syotaAsema(lahtoAsema), syotaAsema(maaraAsema));
                     break;
 
                 case "4":
@@ -66,33 +69,20 @@ public class Ui {
                     break;
             }
         } while (!komento.equals("0"));
-
         System.out.println("Kiitos ja näkemiin!");
     }
-    //kysyy määräaseman ja muuttaa sen aseman lyhenteeksi. kysyy syötettä kunnes järkevä nimi. Message tulee asema-luokasta.
-    private String syotaMaaraAsema() {
-        System.out.println("Syötä määräasema:");
-        String maaraAsemanNimi = muokkaaAsemanNimi(scanner.nextLine());
-        maaraAsema = asema.haeAsemanKoodi(maaraAsemanNimi);
-        while (maaraAsema == null) {
-            maaraAsemanNimi = muokkaaAsemanNimi(scanner.nextLine());
-            maaraAsema = asema.haeAsemanKoodi(maaraAsemanNimi);
+    //kysyy aseman ja muuttaa sen aseman lyhenteeksi. kysyy syötettä kunnes järkevä nimi. Message tulee asema-luokasta.
+    private String syotaAsema(String viestiKayttajalle) {
+        System.out.println(viestiKayttajalle);
+        String syotettyNimi = muokkaaAsemanNimi(scanner.nextLine());
+        asemanNimi = asema.haeAsemanKoodi(syotettyNimi);
+        while (asemanNimi == null) {
+            syotettyNimi = muokkaaAsemanNimi(scanner.nextLine());
+            asemanNimi = asema.haeAsemanKoodi(syotettyNimi);
         }
-        return maaraAsema;
+        return asemanNimi;
     }
-
-    private String syotaLahtoasema() {
-        System.out.println("Syötä lähtöasema:");
-        String lahtoAsemanNimi = muokkaaAsemanNimi(scanner.nextLine());
-        lahtoasema = asema.haeAsemanKoodi(lahtoAsemanNimi);
-        while (lahtoasema == null) {
-            lahtoAsemanNimi = muokkaaAsemanNimi(scanner.nextLine());
-            lahtoasema = asema.haeAsemanKoodi(lahtoAsemanNimi);
-        }
-        return lahtoasema;
-    }
-
-    // Muokataan syötettä -> trimmaus ja jos kaksi osaa niin lisätään se mukaan ja palautetaan.
+    // Aseman nimisyötteen trimmaus ja jos aseman virallisessa nimessä kaksi osaa niin lisätään jälkimmäinen mukaan ja palautetaan.
     public String muokkaaAsemanNimi(String syote) {
         String[] asemanNimenosat = syote.trim().split(" ");
         String asemanNimi = asemanNimenosat[0].trim().toLowerCase();
@@ -105,12 +95,9 @@ public class Ui {
 
     public void tulostaAikataulut(String lahtoasema, String maaraAsema) {
         Toiminnallisuus.haeJunatAsemienPerusteella(lahtoasema, maaraAsema);
-
     }
 
     public void tulostaJunanTiedot(int numero) {
         Toiminnallisuus.haeJunaNumeronPerusteella(numero);
-
     }
-
 }
