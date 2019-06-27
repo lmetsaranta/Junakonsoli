@@ -57,12 +57,12 @@ public class Ui {
                     break;
                 case "3":
                     //tähän tulee liikkeessä olevat junat asemien perusteella
-                    syotaLahtoasema();
-                    syotaMaaraAsema();
+                    Toiminnallisuus.haeLiikkeessaOlevatJunatAsemienPerusteella(syotaLahtoasema(), syotaMaaraAsema());
                     break;
 
                 case "4":
                     //listaa liikkeellä olevat junat
+                    Toiminnallisuus.haeLiikkeessaOlevatJunat();
                     break;
             }
         } while (!komento.equals("0"));
