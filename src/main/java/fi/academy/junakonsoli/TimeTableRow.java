@@ -15,8 +15,14 @@ public class TimeTableRow {
         String commercialTrack;
         boolean cancelled;
         Date scheduledTime;
+        Date actualTime;
+        Date liveEstimateTime;
+        int differenceInMinutes;
         boolean unknownDelay;
         List<?> causes;
+        TrainReady trainReady;
+        String estimateSource;
+
 
     public String getStationShortCode() {
             return stationShortCode;
@@ -104,6 +110,46 @@ public class TimeTableRow {
 
     public void setCauses(List<?> causes) {
         this.causes = causes;
+    }
+
+    public Date getActualTime() {
+        return actualTime;
+    }
+
+    public void setActualTime(Date actualTime) {
+        this.actualTime = actualTime;
+    }
+
+    public int getDifferenceInMinutes() {
+        return differenceInMinutes;
+    }
+
+    public void setDifferenceInMinutes(int differenceInMinutes) {
+        this.differenceInMinutes = differenceInMinutes;
+    }
+
+    public TrainReady getTrainReady() {
+        return trainReady;
+    }
+
+    public void setTrainReady(TrainReady trainReady) {
+        this.trainReady = trainReady;
+    }
+
+    public Date getLiveEstimateTime() {
+        return liveEstimateTime;
+    }
+
+    public void setLiveEstimateTime(Date liveEstimateTime) {
+        this.liveEstimateTime = liveEstimateTime;
+    }
+
+    public String getEstimateSource() {
+        return estimateSource;
+    }
+
+    public void setEstimateSource(String estimateSource) {
+        this.estimateSource = estimateSource;
     }
 
     //Täältä poistettava static mahdollisesti
