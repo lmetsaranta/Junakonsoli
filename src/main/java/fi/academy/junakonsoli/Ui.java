@@ -1,6 +1,4 @@
 package fi.academy.junakonsoli;
-
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
@@ -21,7 +19,7 @@ public class Ui {
         this.toiminta = new Toiminnallisuus();
     }
 
-    public void kaynnista() throws IOException { // heittää mainiin, pitäis varmaan käsitellä siellä?
+    public void kaynnista() {
         System.out.println("Junainfo");
 
         String komento="";

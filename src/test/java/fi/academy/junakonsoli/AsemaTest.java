@@ -10,8 +10,8 @@ public class AsemaTest {
 
     @Test
     public void TestaaHaeAsemanKoodi() {
-        String tulos = "HKI";
-        String actual = asema.haeAsemanKoodi("Helsinki");
+        String tulos = "TPE";
+        String actual = asema.haeAsemanKoodi("Tampere");
         assertEquals(tulos,actual);
     }
 
