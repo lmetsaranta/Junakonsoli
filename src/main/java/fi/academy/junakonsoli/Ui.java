@@ -1,6 +1,4 @@
 package fi.academy.junakonsoli;
-
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
@@ -21,22 +19,28 @@ public class Ui {
         this.toiminta = new Toiminnallisuus();
     }
 
-    public void kaynnista() throws IOException { // heittää mainiin, pitäis varmaan käsitellä siellä?
+    public void kaynnista() { // heittää mainiin, pitäis varmaan käsitellä siellä?
+
         System.out.println("Junainfo");
 
         String komento="";
         do {
-            System.out.println("1: Tarkasta juna-aikataulut kahden aseman välillä");
+            System.out.println(
+                    "\nToiminnot: \n"+
+                    "1: Tarkasta juna-aikataulut kahden aseman välillä \n" +
+                    "2: Hae yksittäisen junan aikataulua numeron perusteella \n" +
+                    "0: Poistu junakonsolista");
+
             komento = scanner.nextLine();
             switch (komento) {
                 case "1":
                     System.out.println("Syötä lähtöasema:");
-                    String asemanNimi = muokkaa(scanner.nextLine());
-                    lahtoasema = asema.haeAsemanKoodi(asemanNimi);
+                    String lahtoAsemanNimi = muokkaa(scanner.nextLine());
                     System.out.println("Syötä määräasema:");
-                    asemanNimi = muokkaa(scanner.nextLine());
-                    maaraAsema = asema.haeAsemanKoodi(asemanNimi);
-
+                    String maaraAsemanNimi = muokkaa(scanner.nextLine());
+                    lahtoasema=asema.haeAsemanKoodi(lahtoAsemanNimi);
+                    maaraAsema=asema.haeAsemanKoodi(maaraAsemanNimi);
+                    System.out.println("");
                     tulostaAikataulut(lahtoasema, maaraAsema);
                     System.out.println("");
                     break;
@@ -44,9 +48,15 @@ public class Ui {
                 case "2":
                     //toinen keissi tähän, seuraava lähtevä juna asemalta?
                     System.out.println("Syötä junan numero");
-                    junanNumero = Integer.valueOf(scanner.nextLine());
-                    tulostaJunanTiedot(junanNumero);
-                    System.out.println("");
+
+                    try {
+                        junanNumero = Integer.valueOf(scanner.nextLine());
+                        tulostaJunanTiedot(junanNumero);
+                        System.out.println("");
+                    } catch (NumberFormatException e) {
+                        System.err.print("Virheellinen syöte. Syötithän numeron? \n");
+                    }
+
                     break;
                 case "3":
                     //seuraava saapuva juna
@@ -55,16 +65,19 @@ public class Ui {
                     //asemalta lähteneet
                     break;
             }
-        } while (komento != "0");
+        } while (!komento.equals("0"));
+
+        System.out.println("Kiitos ja näkemiin!");
     }
 
     // Muokataan syötettä -> trimmaus ja jos kaksi osaa niin lisätään se mukaan ja palautetaan.
-    private String muokkaa(String syote) {
-        String[] asemanNimenosat = syote.split(" ");
+    public String muokkaa(String syote) {
+
+        String[] asemanNimenosat = syote.trim().split(" ");
         String asemanNimi = asemanNimenosat[0].trim().toLowerCase();
         asemanNimi = asemanNimi.substring(0, 1).toUpperCase() + asemanNimi.substring(1);
         if (asemanNimenosat.length == 2) {
-            return asemanNimi + " " + asemanNimenosat[1];
+            return asemanNimi + " " + asemanNimenosat[1].toLowerCase();
         }
         return asemanNimi;
     }
