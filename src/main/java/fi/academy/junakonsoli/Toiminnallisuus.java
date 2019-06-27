@@ -14,9 +14,11 @@ import java.net.URI;
 import java.net.URL;
 import java.time.LocalDate;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 Vaatii Jackson kirjaston:
@@ -42,6 +44,7 @@ public class Toiminnallisuus {
             System.out.println(ex);
         }
     }
+
     /* Hakee ja tulostaa yhden junan tiedot, sisältäen kaikki pysähdyspaikat. Hyödyntää Juna-luokan toString-metodia. */
     public static void haeJunaNumeronPerusteella(int numero) {
         int junannumero = numero;
@@ -57,11 +60,12 @@ public class Toiminnallisuus {
             System.out.println(ex);
         }
     }
+
     // Tulostaa kaikki junat, jotka ovat hakuhetkellä liikkessä. Hyödyntää Juna-luokan toString-metodia.
     public static void haeLiikkeessaOlevatJunat() {
         String baseurl = "https://rata.digitraffic.fi/api/v1";
         try {
-            URL url = new URL(URI.create(String.format("%s/trains/" + LocalDate.now() , baseurl)).toASCIIString());
+            URL url = new URL(URI.create(String.format("%s/trains/" + LocalDate.now(), baseurl)).toASCIIString());
             ObjectMapper mapper = new ObjectMapper();
             CollectionType tarkempiListanTyyppi = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Juna.class);
             List<Juna> junat = mapper.readValue(url, tarkempiListanTyyppi);  // pelkkä List.class ei riitä tyypiksi
@@ -72,5 +76,34 @@ public class Toiminnallisuus {
         }
     }
 
+    public static void haeLiikkeessaOlevatJunatAsemienPerusteella(String lahto, String paate) {
+        String baseurl = "https://rata.digitraffic.fi/api/v1";
+        try {
+            URL url = new URL(URI.create(String.format("%s/trains/" + LocalDate.now(), baseurl)).toASCIIString());
+            ObjectMapper mapper = new ObjectMapper();
+            CollectionType tarkempiListanTyyppi = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Juna.class);
+            List<Juna> junat = mapper.readValue(url, tarkempiListanTyyppi);  // pelkkä List.class ei riitä tyypiksi
+            List<Juna> liikkuvat = junat.stream()
+                    .filter(j -> j.runningCurrently)
+                    .collect(Collectors.toList());
+            for (Juna juna : liikkuvat) {
+                List<Juna> filtteroidut = new ArrayList<>();
+                for (int i = 0; i < juna.timeTableRows.size(); i++) {
+                    if (juna.timeTableRows.get(i).stationShortCode.equals(lahto) && juna.timeTableRows.get(i).scheduledTime.compareTo(new Date()) < 0) {
+                        filtteroidut.add(juna);
+                    }
+                }
+                for (Juna train : filtteroidut) {
+                    for (int i = 0; i < juna.timeTableRows.size(); i++) {
+                        if (juna.timeTableRows.get(i).stationShortCode.equals(paate) && juna.timeTableRows.get(i).scheduledTime.compareTo(new Date()) > 0) {
+                            System.out.println(juna.toString());
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
 }
 

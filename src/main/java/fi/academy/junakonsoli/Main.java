@@ -1,7 +1,8 @@
 package fi.academy.junakonsoli;
 import java.util.Scanner;
 
-import static fi.academy.junakonsoli.Toiminnallisuus.haeLiikkeessaOlevatJunat;
+import static fi.academy.junakonsoli.Toiminnallisuus.*;
+
 
 public class Main {
 
