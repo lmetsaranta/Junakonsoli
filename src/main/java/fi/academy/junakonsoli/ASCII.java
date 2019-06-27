@@ -1,6 +1,7 @@
 package fi.academy.junakonsoli;
 
-//tekijä: Kirsi
+//Tekijä: Kirsi
+
 public class ASCII {
 
     public void tulostaASCII() {
