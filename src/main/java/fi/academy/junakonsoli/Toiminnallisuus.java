@@ -28,16 +28,20 @@ public class Toiminnallisuus {
     /* Hakee ja tulostaa junat kahden aseman väliltä. Hyödyntää Juna-luokan metodia "tulostaJuna", joka luo oikean tulostusasun
     lähtö- ja pääteaseman perusteella. Metodi saa parametrina lähtö- ja pääteaseman tunnukset. */
     public static void haeJunatAsemienPerusteella(String lahto, String paate) {
-        String baseurl = "https://rata.digitraffic.fi/api/v1";
-        try {
-            URL url = new URL(URI.create(String.format("%s/live-trains/station/" + lahto + "/" + paate, baseurl)).toASCIIString());
-            ObjectMapper mapper = new ObjectMapper();
-            CollectionType tarkempiListanTyyppi = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Juna.class);
-            List<Juna> junat = mapper.readValue(url, tarkempiListanTyyppi);  // pelkkä List.class ei riitä tyypiksi
-            junat.stream()
-                    .forEach(j -> System.out.println(j.tulostaJuna(paate)));
-        } catch (Exception ex) {
-            System.out.println(ex);
+        if (lahto.equals(paate)) {
+            System.out.println("Virheellinen syöte");
+        } else {
+            String baseurl = "https://rata.digitraffic.fi/api/v1";
+            try {
+                URL url = new URL(URI.create(String.format("%s/live-trains/station/" + lahto + "/" + paate, baseurl)).toASCIIString());
+                ObjectMapper mapper = new ObjectMapper();
+                CollectionType tarkempiListanTyyppi = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Juna.class);
+                List<Juna> junat = mapper.readValue(url, tarkempiListanTyyppi);  // pelkkä List.class ei riitä tyypiksi
+                junat.stream()
+                        .forEach(j -> System.out.println(j.tulostaJuna(lahto, paate)));
+            } catch (Exception ex) {
+                System.out.println("Valitettavasti valitsemaltasi väliltä ei löytynyt yhtään junaa.");
+            }
         }
     }
     /* Hakee ja tulostaa yhden junan tiedot, sisältäen kaikki pysähdyspaikat. Hyödyntää Juna-luokan toString-metodia. */
@@ -49,6 +53,9 @@ public class Toiminnallisuus {
             ObjectMapper mapper = new ObjectMapper();
             CollectionType tarkempiListanTyyppi = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Juna.class);
             List<Juna> junat = mapper.readValue(url, tarkempiListanTyyppi);  // pelkkä List.class ei riitä tyypiksi
+            if (junat.isEmpty()) {
+                System.err.println("Junaa ei ole olemassa");
+            }
             junat.stream()
                     .forEach(j -> System.out.println(j));
         } catch (Exception ex) {
