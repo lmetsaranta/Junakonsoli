@@ -2,18 +2,15 @@
 
 package fi.academy.junakonsoli;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.Date;
 import java.util.List;
-
 import static fi.academy.junakonsoli.TimeTableRow.kellonaika;
 import static fi.academy.junakonsoli.TimeTableRow.paivamaara;
 
 public class Juna {
     boolean cancelled;
     String commuterLineID;
-    //LocalDate departureDate;  // Jackson ei oikein pidä Java 8 päivistä oletuksena
     Date departureDate;
     String operatorShortCode;
     int operatorUICCode;
@@ -27,15 +24,14 @@ public class Juna {
     long version;
     Asema asema = new Asema();
 
-// Tulostaa junan tiedot "Long-distance IC111 HKI 26.6.2019 klo 10.24 - TPE klo 11.55" -muodossa. Saa parametrina pääteaseman tunnuksen.
+// Tulostaa junan tiedot "Long-distance IC111 26.6.2019 HKI klo 10.24 - TPE klo 11.55" -muodossa. Saa parametrina-lähtö ja pääteasemat tunnuksen.
     public String tulostaJuna(String lahto, String paate) {
         return trainCategory + " " + trainType + trainNumber + " " + paivamaara(getLahtoaika(lahto)) + " " + getLahtoasema(lahto) + " " + kellonaika(getLahtoaika(lahto)) + " - " + getPaateasema(paate) + " " + kellonaika(getSaapumisaika(paate));
     }
     @Override
-    // Tulostetaan junan tiedot muodossa "Long-distance IC111 HKI 26.6.2019 klo 10.24 - TPE klo 11.55"
+    // Tulostetaan junan tiedot ja pysähdysasemat.
     public String toString() {
         return trainCategory + " " + trainType + trainNumber + " " + paivamaara(departureDate) + "\n" + pysakit();
-//                timeTableRows.get(0).stationShortCode + " " + paivamaara(timeTableRows.get(0).scheduledTime) + " " + kellonaika(timeTableRows.get(0).scheduledTime) + " - " + getPaateasema("TPE") + " " + kellonaika(getSaapumisaika("HKI"));
     }
 
     public String pysakit() {
@@ -53,9 +49,7 @@ public class Juna {
     }
 
 
-    /* Haetaan pääteaseman mukaan kyseisen aseman tunnus. (Tässä vaiheessa vielä turha metodi kun haetaan tunnuksella tunnus..)
-    Tehdään myöhemmin ominaisuus, että toimii haulla "Helsinki" --> palauttaa "HKI".
-     */
+    //Tuo käyttäjän syöttämän pääteaseman
     private String getPaateasema(String asema) {
         String paateasema = " ";
         for (TimeTableRow rivi: timeTableRows) {
@@ -78,6 +72,7 @@ public class Juna {
         return saapumisaika;
     }
 
+    //Tuodaan käyttäjän syöttämän lähtöaseman.
     private String getLahtoasema(String asema) {
         String paateasema = " ";
         for (TimeTableRow rivi: timeTableRows) {
@@ -88,6 +83,7 @@ public class Juna {
         return paateasema;
     }
 
+    //Tuo junan lähtöajan käyttäjän syöttämältä asemalta.
     private Date getLahtoaika(String asema) {
         Date saapumisaika = new Date();
         for (TimeTableRow rivi: timeTableRows) {
