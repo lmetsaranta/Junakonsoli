@@ -62,7 +62,7 @@ public class Toiminnallisuus {
             junat.stream()
                     .filter(j -> j.runningCurrently).forEach(j -> System.out.println(j + "\n"));
         } catch (Exception ex) {
-            System.err.println("Haku ei onnistunut. Yritä myöhemmin uudelleen tai muuta antamiasi hakuehtoja.");
+            System.err.println("Nyt ei enää kone jaksa hakea enempää...");
         }
     }
 
