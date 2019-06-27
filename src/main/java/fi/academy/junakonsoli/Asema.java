@@ -9,7 +9,6 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -17,8 +16,8 @@ public class Asema {
     //luo asemien hakuun tarvittavan HashMapin
     private HashMap<String, String> asemat = new HashMap<>();
 
-    //hakee aseman kolmikirjaimisen koodin aseman nimen perusteella
-    public String haeAsemanKoodi(String nimi){
+    //hakee aseman koodin aseman nimen perusteella
+    public String haeAsemanKoodi(String nimi) {
         lueAsemienMetaData();
         if (Stream.of("Hanko", "Helsinki", "Ilmala", "Imatra", "Joensuu", "Järvenpää", "Kauklahti", "Kotka", "Kouvola", "Kuopio", "Oulu",
                 "Pasila", "Pieksämäki", "Riihimäki", "Savonlinna", "Seinäjoki", "Tampere",
@@ -28,7 +27,7 @@ public class Asema {
             nimi = nimi + "-Itäinen";
         }
         if (!asemat.containsKey(nimi)) {
-            System.out.println("Asemaa ei löytynyt! Syötä oikea aseman nimi");
+            System.err.println("Asemaa ei löytynyt! Syötä oikea aseman nimi");
         }
         String koodi = asemat.get(nimi);
         return koodi;
@@ -38,6 +37,9 @@ public class Asema {
     public String haeAsemanNimi(String koodi) {
         lueAsemienMetaData();
         String nimi = haeAvainArvolla(asemat, koodi);
+        String regex = "\\s|\\-";
+        String [] asemanNimi = nimi.split(regex);
+        nimi = asemanNimi[0];
         return nimi;
     }
 
@@ -52,7 +54,7 @@ public class Asema {
     }
 
     // lukee asemien metadataa rest apista
-    public void lueAsemienMetaData(){
+    public void lueAsemienMetaData() {
         String kokolista = "";
         URL url = null;
         try {
@@ -96,17 +98,17 @@ public class Asema {
     //parserointimetodi: lukee urlista JSON dataa ja parseroi sen
     public HashMap parseroiAsemienJSONdata(String sisalto) {
         JSONArray junat = new JSONArray(sisalto);
-            for (int i = 0; i < junat.length(); i++) {
-                JSONObject juna = junat.getJSONObject(i);
-                //hakee datasta aseman nimet, koodit ja tiedon onko matkustaja-asema
-                String asemanNimi = juna.getString("stationName");
-                String asemanKoodi = juna.getString("stationShortCode");
-                boolean matkustajaAsema = juna.getBoolean("passengerTraffic");
-                //jos kyseessä on matkustaja-asema, lisää nimet ja koodit hashmapiin
-                if (matkustajaAsema == true) {
-                    asemat.put(asemanNimi, asemanKoodi);
-                }
+        for (int i = 0; i < junat.length(); i++) {
+            JSONObject juna = junat.getJSONObject(i);
+            //hakee datasta aseman nimet, koodit ja tiedon onko matkustaja-asema
+            String asemanNimi = juna.getString("stationName");
+            String asemanKoodi = juna.getString("stationShortCode");
+            boolean matkustajaAsema = juna.getBoolean("passengerTraffic");
+            //jos kyseessä on matkustaja-asema, lisää nimet ja koodit hashmapiin
+            if (matkustajaAsema == true) {
+                asemat.put(asemanNimi, asemanKoodi);
             }
+        }
         return asemat;
     }
 }
