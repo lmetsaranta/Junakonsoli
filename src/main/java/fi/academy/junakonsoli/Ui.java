@@ -37,11 +37,11 @@ public class Ui {
                 case "1":
                     System.out.println("Syötä lähtöasema:");
                     String lahtoAsemanNimi = muokkaa(scanner.nextLine());
-                    //lahtoasema = asema.haeAsemanKoodi(lahtoAsemanNimi);
                     System.out.println("Syötä määräasema:");
                     String maaraAsemanNimi = muokkaa(scanner.nextLine());
+                    lahtoasema=asema.haeAsemanKoodi(lahtoAsemanNimi);
+                    maaraAsema=asema.haeAsemanKoodi(maaraAsemanNimi);
                     System.out.println("");
-                    //maaraAsema = asema.haeAsemanKoodi(maaraAsemanNimi);
                     tulostaAikataulut(lahtoasema, maaraAsema);
                     System.out.println("");
                     break;
