@@ -1,3 +1,5 @@
+/* Created by Lennu Metsäranta & Nuutti Niemelä. */
+
 package fi.academy.junakonsoli;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
