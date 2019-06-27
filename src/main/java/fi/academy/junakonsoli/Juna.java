@@ -26,14 +26,13 @@ public class Juna {
     Asema asema = new Asema();
 
 // Tulostaa junan tiedot "Long-distance IC111 HKI 26.6.2019 klo 10.24 - TPE klo 11.55" -muodossa. Saa parametrina pääteaseman tunnuksen.
-    public String tulostaJuna(String paate) {
-        String paateasema = paate;
-        return trainCategory + " " + trainType + trainNumber + " " + timeTableRows.get(0).stationShortCode + " " + paivamaara(timeTableRows.get(0).scheduledTime) + " " + kellonaika(timeTableRows.get(0).scheduledTime) + " - " + getPaateasema(paate) + " " + kellonaika(getSaapumisaika(paate));
+    public String tulostaJuna(String lahto, String paate) {
+        return trainCategory + " " + trainType + trainNumber + " " + getLahtoasema(lahto) + " " + paivamaara(getLahtoaika(lahto)) + " " + kellonaika(getLahtoaika(lahto)) + " - " + getPaateasema(paate) + " " + kellonaika(getSaapumisaika(paate));
     }
     @Override
     // Tulostetaan junan tiedot muodossa "Long-distance IC111 HKI 26.6.2019 klo 10.24 - TPE klo 11.55"
     public String toString() {
-        return trainCategory + " " + trainType + trainNumber + "\n" + pysakit();
+        return trainCategory + " " + trainType + trainNumber + " " + paivamaara(departureDate) + "\n" + pysakit();
 //                timeTableRows.get(0).stationShortCode + " " + paivamaara(timeTableRows.get(0).scheduledTime) + " " + kellonaika(timeTableRows.get(0).scheduledTime) + " - " + getPaateasema("TPE") + " " + kellonaika(getSaapumisaika("HKI"));
     }
 
@@ -44,7 +43,7 @@ public class Juna {
             if (timeTableRows.get(i).commercialStop == true && timeTableRows.get(i).type.equals("ARRIVAL")) {
                 pysakkilista.append("\n" + asema.haeAsemanNimi(timeTableRows.get(i).stationShortCode) + ": Saapuu: " + kellonaika(timeTableRows.get(i).scheduledTime));
             } else if (timeTableRows.get(i).commercialStop == true && timeTableRows.get(i).type.equals("DEPARTURE")) {
-                pysakkilista.append(" - " + "Lähtee:" + kellonaika(timeTableRows.get(i).scheduledTime));
+                pysakkilista.append(" - " + "Lähtee: " + kellonaika(timeTableRows.get(i).scheduledTime));
             }
         }
 
@@ -69,6 +68,26 @@ public class Juna {
         Date saapumisaika = new Date();
         for (TimeTableRow rivi: timeTableRows) {
             if (rivi.stationShortCode.equals(asema) && rivi.type.equals("ARRIVAL")) {
+                saapumisaika = rivi.scheduledTime;
+            }
+        }
+        return saapumisaika;
+    }
+
+    private String getLahtoasema(String asema) {
+        String paateasema = " ";
+        for (TimeTableRow rivi: timeTableRows) {
+            if (rivi.stationShortCode.equals(asema) && rivi.type.equals("DEPARTURE")) {
+                paateasema = rivi.stationShortCode;
+            }
+        }
+        return paateasema;
+    }
+
+    private Date getLahtoaika(String asema) {
+        Date saapumisaika = new Date();
+        for (TimeTableRow rivi: timeTableRows) {
+            if (rivi.stationShortCode.equals(asema) && rivi.type.equals("DEPARTURE")) {
                 saapumisaika = rivi.scheduledTime;
             }
         }
