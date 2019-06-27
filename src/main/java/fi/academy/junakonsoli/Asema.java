@@ -1,3 +1,5 @@
+//Created by: Kirsi Kujala
+
 package fi.academy.junakonsoli;
 
 import java.io.IOException;
@@ -11,22 +13,24 @@ import java.util.stream.Stream;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-//Tekijä: Kirsi
-
 public class Asema {
     //luo asemien hakuun tarvittavan HashMapin
     private HashMap<String, String> asemat = new HashMap<>();
 
-    //hakee aseman koodin aseman nimen perusteella
+    //metodi hakee aseman koodin aseman nimen perusteella
     public String haeAsemanKoodi(String nimi) {
         lueAsemienMetaData();
+        /*käsittelee poikkeustapaukset eli asemat, joita käyttäjä ei löydä pelkällä paikkakunnan nimellä, koska ne ovat metadatassa
+        muodossa *aseman nimi* + asema */
         if (Stream.of("Hanko", "Helsinki", "Ilmala", "Imatra", "Joensuu", "Järvenpää", "Kauklahti", "Kotka", "Kouvola", "Kuopio", "Oulu",
                 "Pasila", "Pieksämäki", "Riihimäki", "Savonlinna", "Seinäjoki", "Tampere",
                 "Tikkurila", "Turku", "Vainikkala").anyMatch(nimi::equalsIgnoreCase)) {
             nimi = nimi + " asema";
+        //käsittelee poikkeuksen poikkeuksen eli Tornion. "Tornio asema" ei ole matkustaja-asema, vaan Tornio-Itäinen on
         } else if (nimi.equals("Tornio")) {
             nimi = nimi + "-Itäinen";
         }
+        //jos aseman nimeä ei löydy HashMapista, tulostaa käyttäjälle virheilmoituksen
         if (!asemat.containsKey(nimi)) {
             System.err.println("Asemaa ei löytynyt! Syötä oikea aseman nimi");
         }
@@ -34,7 +38,7 @@ public class Asema {
         return koodi;
     }
 
-    //hakee aseman nimen aseman koodin perusteella
+    //metodi hakee aseman nimen aseman koodin perusteella ja palauttaa poikkeustapauksissa (ks.yllä) vain paikkakunnan nimen
     public String haeAsemanNimi(String koodi) {
         lueAsemienMetaData();
         String nimi = haeAvainArvolla(asemat, koodi);
@@ -54,7 +58,7 @@ public class Asema {
         return null;
     }
 
-    // lukee asemien metadataa rest apista
+    //metodi lukee asemien metadataa rest apista
     public void lueAsemienMetaData() {
         String kokolista = "";
         URL url = null;

@@ -20,9 +20,8 @@ public class Ui {
         this.toiminta = new Toiminnallisuus();
     }
 
-    public void kaynnista() { // heittää mainiin, pitäis varmaan käsitellä siellä?
+    public void kaynnista() {
 
-        System.out.println("Junainfo");
 
         String komento = "";
         do {

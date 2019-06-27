@@ -2,18 +2,15 @@
 
 package fi.academy.junakonsoli;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.Date;
 import java.util.List;
-
 import static fi.academy.junakonsoli.TimeTableRow.kellonaika;
 import static fi.academy.junakonsoli.TimeTableRow.paivamaara;
 
 public class Juna {
     boolean cancelled;
     String commuterLineID;
-    //LocalDate departureDate;  // Jackson ei oikein pidä Java 8 päivistä oletuksena
     Date departureDate;
     String operatorShortCode;
     int operatorUICCode;
