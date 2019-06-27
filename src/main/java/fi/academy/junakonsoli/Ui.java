@@ -43,7 +43,6 @@ public class Ui {
                     break;
 
                 case "2":
-                    //toinen keissi tähän, seuraava lähtevä juna asemalta?
                     System.out.println("Syötä junan numero");
 
                     try {
