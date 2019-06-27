@@ -4,6 +4,8 @@ import org.junit.Test;
 import java.io.IOException;
 import static org.junit.Assert.*;
 
+//Tekijä: Kirsi
+
 public class AsemaTest {
 
     Asema asema = new Asema();

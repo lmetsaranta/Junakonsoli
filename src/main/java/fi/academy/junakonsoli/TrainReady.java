@@ -1,7 +1,10 @@
+/* Created by Lennu Metsäranta. */
+
 package fi.academy.junakonsoli;
 
 import java.util.Date;
 
+// Luokka on TimeTableRow-luokan apuluokka.
 public class TrainReady {
     String source;
     boolean accepted;

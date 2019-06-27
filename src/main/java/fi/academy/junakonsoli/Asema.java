@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+//Tekijä: Kirsi
 
 public class Asema {
     //luo asemien hakuun tarvittavan HashMapin
