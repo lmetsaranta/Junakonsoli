@@ -37,6 +37,9 @@ public class Asema {
     public String haeAsemanNimi(String koodi) {
         lueAsemienMetaData();
         String nimi = haeAvainArvolla(asemat, koodi);
+        String regex = "\\s|\\-";
+        String [] asemanNimi = nimi.split(regex);
+        nimi = asemanNimi[0];
         return nimi;
     }
 
