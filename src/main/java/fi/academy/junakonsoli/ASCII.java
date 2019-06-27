@@ -1,6 +1,6 @@
-package fi.academy.junakonsoli;
+//Created by: Kirsi Kujala
 
-//Tekijä: Kirsi
+package fi.academy.junakonsoli;
 
 public class ASCII {
 
