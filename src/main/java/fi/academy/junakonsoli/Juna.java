@@ -46,7 +46,6 @@ public class Juna {
             } else if (timeTableRows.get(i).commercialStop == true && timeTableRows.get(i).type.equals("DEPARTURE")) {
                 pysakkilista.append(" - " + "Lähtee:" + kellonaika(timeTableRows.get(i).scheduledTime));
             }
-
         }
 
         return pysakkilista.toString();
