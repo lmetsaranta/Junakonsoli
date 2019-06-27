@@ -25,6 +25,8 @@ Asentuu Jacksonin databind, sekä core ja annotations
  */
 
 public class Toiminnallisuus {
+    /* Hakee ja tulostaa junat kahden aseman väliltä. Hyödyntää Juna-luokan metodia "tulostaJuna", joka luo oikean tulostusasun
+    lähtö- ja pääteaseman perusteella. Metodi saa parametrina lähtö- ja pääteaseman tunnukset. */
     public static void haeJunatAsemienPerusteella(String lahto, String paate) {
         String baseurl = "https://rata.digitraffic.fi/api/v1";
         try {
@@ -38,6 +40,7 @@ public class Toiminnallisuus {
             System.out.println(ex);
         }
     }
+    /* Hakee ja tulostaa yhden junan tiedot, sisältäen kaikki pysähdyspaikat. Hyödyntää Juna-luokan toString-metodia. */
     public static void haeJunaNumeronPerusteella(int numero) {
         int junannumero = numero;
         String baseurl = "https://rata.digitraffic.fi/api/v1";
@@ -48,6 +51,20 @@ public class Toiminnallisuus {
             List<Juna> junat = mapper.readValue(url, tarkempiListanTyyppi);  // pelkkä List.class ei riitä tyypiksi
             junat.stream()
                     .forEach(j -> System.out.println(j));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    // Tulostaa kaikki junat, jotka ovat hakuhetkellä liikkessä. Hyödyntää Juna-luokan toString-metodia.
+    public static void haeLiikkeessaOlevatJunat() {
+        String baseurl = "https://rata.digitraffic.fi/api/v1";
+        try {
+            URL url = new URL(URI.create(String.format("%s/trains/" + LocalDate.now() , baseurl)).toASCIIString());
+            ObjectMapper mapper = new ObjectMapper();
+            CollectionType tarkempiListanTyyppi = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Juna.class);
+            List<Juna> junat = mapper.readValue(url, tarkempiListanTyyppi);  // pelkkä List.class ei riitä tyypiksi
+            junat.stream()
+                    .filter(j -> j.runningCurrently == true).forEach(j -> System.out.println(j));
         } catch (Exception ex) {
             System.out.println(ex);
         }
