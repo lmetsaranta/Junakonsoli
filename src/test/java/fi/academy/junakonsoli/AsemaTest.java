@@ -9,14 +9,14 @@ public class AsemaTest {
     Asema asema = new Asema();
 
     @Test
-    public void TestaaHaeAsemanKoodi() throws IOException {
+    public void TestaaHaeAsemanKoodi() {
         String tulos = "HKI";
         String actual = asema.haeAsemanKoodi("Helsinki");
         assertEquals(tulos,actual);
     }
 
     @Test
-    public void TestaaHaeAsemanNimi() throws IOException {
+    public void TestaaHaeAsemanNimi() {
         String tulos = "Tuomarila";
         String actual = asema.haeAsemanNimi("TRL");
         assertEquals(tulos, actual);
