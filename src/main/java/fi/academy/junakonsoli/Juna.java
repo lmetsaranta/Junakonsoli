@@ -50,7 +50,7 @@ public class Juna {
 
         return pysakkilista.toString();
     }
-    
+
 
     /* Haetaan pääteaseman mukaan kyseisen aseman tunnus. (Tässä vaiheessa vielä turha metodi kun haetaan tunnuksella tunnus..)
     Tehdään myöhemmin ominaisuus, että toimii haulla "Helsinki" --> palauttaa "HKI".
