@@ -1,5 +1,7 @@
 package fi.academy.junakonsoli;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class Juna {
     int trainNumber;
     String trainType;
     long version;
+    Asema asema = new Asema();
 
 // Tulostaa junan tiedot "Long-distance IC111 HKI 26.6.2019 klo 10.24 - TPE klo 11.55" -muodossa. Saa parametrina pääteaseman tunnuksen.
     public String tulostaJuna(String paate) {
@@ -30,8 +33,25 @@ public class Juna {
     @Override
     // Tulostetaan junan tiedot muodossa "Long-distance IC111 HKI 26.6.2019 klo 10.24 - TPE klo 11.55"
     public String toString() {
-        return trainCategory + " " + trainType + trainNumber + " " + timeTableRows.get(0).stationShortCode + " " + paivamaara(timeTableRows.get(0).scheduledTime) + " " + kellonaika(timeTableRows.get(0).scheduledTime) + " - " + getPaateasema("TPE") + " " + kellonaika(getSaapumisaika("HKI"));
+        return trainCategory + " " + trainType + trainNumber + "\n" + pysakit();
+//                timeTableRows.get(0).stationShortCode + " " + paivamaara(timeTableRows.get(0).scheduledTime) + " " + kellonaika(timeTableRows.get(0).scheduledTime) + " - " + getPaateasema("TPE") + " " + kellonaika(getSaapumisaika("HKI"));
     }
+
+    public String pysakit() {
+        StringBuilder pysakkilista = new StringBuilder();
+        pysakkilista.append(asema.haeAsemanNimi(timeTableRows.get(0).stationShortCode) + ": Lähtee: " + kellonaika(timeTableRows.get(0).scheduledTime));
+        for (int i = 1; i < timeTableRows.size() ; i++) {
+            if (timeTableRows.get(i).commercialStop == true && timeTableRows.get(i).type.equals("ARRIVAL")) {
+                pysakkilista.append("\n" + asema.haeAsemanNimi(timeTableRows.get(i).stationShortCode) + ": Saapuu: " + kellonaika(timeTableRows.get(i).scheduledTime));
+            } else if (timeTableRows.get(i).commercialStop == true && timeTableRows.get(i).type.equals("DEPARTURE")) {
+                pysakkilista.append(" - " + "Lähtee:" + kellonaika(timeTableRows.get(i).scheduledTime));
+            }
+
+        }
+
+        return pysakkilista.toString();
+    }
+
     /* Haetaan pääteaseman mukaan kyseisen aseman tunnus. (Tässä vaiheessa vielä turha metodi kun haetaan tunnuksella tunnus..)
     Tehdään myöhemmin ominaisuus, että toimii haulla "Helsinki" --> palauttaa "HKI".
      */
