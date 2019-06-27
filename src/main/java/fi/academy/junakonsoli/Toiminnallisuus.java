@@ -20,13 +20,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/*
-Vaatii Jackson kirjaston:
-File | Project Structure
-Libraries >> Add >> Maven
-Etsi "jackson-databind", valitse esimerkiksi versio 2.0.5
-Asentuu Jacksonin databind, sekä core ja annotations
- */
 
 public class Toiminnallisuus {
     /* Hakee ja tulostaa junat kahden aseman väliltä. Hyödyntää Juna-luokan metodia "tulostaJuna", joka luo oikean tulostusasun
@@ -72,10 +65,7 @@ public class Toiminnallisuus {
     public static void haeLiikkeessaOlevatJunat() {
         String baseurl = "https://rata.digitraffic.fi/api/v1";
         try {
-            URL url = new URL(URI.create(String.format("%s/trains/" + LocalDate.now(), baseurl)).toASCIIString());
-            ObjectMapper mapper = new ObjectMapper();
-            CollectionType tarkempiListanTyyppi = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Juna.class);
-            List<Juna> junat = mapper.readValue(url, tarkempiListanTyyppi);  // pelkkä List.class ei riitä tyypiksi
+            List<Juna> junat = getJunaJSON(baseurl);
             junat.stream()
                     .filter(j -> j.runningCurrently == true).forEach(j -> System.out.println(j));
         } catch (Exception ex) {
@@ -86,10 +76,7 @@ public class Toiminnallisuus {
     public static void haeLiikkeessaOlevatJunatAsemienPerusteella(String lahto, String paate) {
         String baseurl = "https://rata.digitraffic.fi/api/v1";
         try {
-            URL url = new URL(URI.create(String.format("%s/trains/" + LocalDate.now(), baseurl)).toASCIIString());
-            ObjectMapper mapper = new ObjectMapper();
-            CollectionType tarkempiListanTyyppi = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Juna.class);
-            List<Juna> junat = mapper.readValue(url, tarkempiListanTyyppi);  // pelkkä List.class ei riitä tyypiksi
+            List<Juna> junat = getJunaJSON(baseurl);
             List<Juna> liikkuvat = junat.stream()
                     .filter(j -> j.runningCurrently)
                     .collect(Collectors.toList());
@@ -111,6 +98,13 @@ public class Toiminnallisuus {
         } catch (Exception ex) {
             System.out.println(ex);
         }
+    }
+
+    private static List<Juna> getJunaJSON(String baseurl) throws IOException {
+        URL url = new URL(URI.create(String.format("%s/trains/" + LocalDate.now(), baseurl)).toASCIIString());
+        ObjectMapper mapper = new ObjectMapper();
+        CollectionType tarkempiListanTyyppi = mapper.getTypeFactory().constructCollectionType(ArrayList.class, Juna.class);
+        return mapper.readValue(url, tarkempiListanTyyppi);
     }
 }
 
