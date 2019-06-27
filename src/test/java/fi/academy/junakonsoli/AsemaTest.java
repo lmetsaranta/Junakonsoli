@@ -10,10 +10,11 @@ public class AsemaTest {
 
     Asema asema = new Asema();
 
+    //Testi testaa asemien koodien hakua nimen perusteella (arvon etsintä Hashmapista avaimen avulla). Testaa myös poikkeukset.
     @Test
     public void TestaaHaeAsemanKoodi() {
-        String tulos = "TPE";
-        String actual = asema.haeAsemanKoodi("Tampere");
+        String tulos = "HKI";
+        String actual = asema.haeAsemanKoodi("Helsinki");
         String tulos2 = "TRI";
         String actual2 = asema.haeAsemanKoodi("Tornio");
         String tulos3 = "ITA";
@@ -23,12 +24,13 @@ public class AsemaTest {
         assertEquals(tulos3, actual3);
     }
 
+    //Testi testaa asemien nimien hakua koodien perusteella (avaimen etsintä Hashmapista arvon avulla). Testaa myös poikkeukset.
     @Test
     public void TestaaHaeAsemanNimi() {
         String tulos = "Tuomarila";
         String actual = asema.haeAsemanNimi("TRL");
-        String tulos2 = "Helsinki";
-        String actual2 = asema.haeAsemanNimi("HKI");
+        String tulos2 = "Tampere";
+        String actual2 = asema.haeAsemanNimi("TPE");
         String tulos3 = "Tornio";
         String actual3 = asema.haeAsemanNimi("TRI");
         assertEquals(tulos, actual);
