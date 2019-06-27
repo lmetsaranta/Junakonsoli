@@ -67,7 +67,7 @@ public class Toiminnallisuus {
         try {
             List<Juna> junat = getJunaJSON(baseurl);
             junat.stream()
-                    .filter(j -> j.runningCurrently == true).forEach(j -> System.out.println(j));
+                    .filter(j -> j.runningCurrently == true).forEach(j -> System.out.println(j + "\n"));
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -84,13 +84,16 @@ public class Toiminnallisuus {
                 List<Juna> filtteroidut = new ArrayList<>();
                 for (int i = 0; i < juna.timeTableRows.size(); i++) {
                     if (juna.timeTableRows.get(i).stationShortCode.equals(lahto) && juna.timeTableRows.get(i).scheduledTime.compareTo(new Date()) < 0) {
-                        filtteroidut.add(juna);
+                        if (!filtteroidut.contains(juna)) {
+                            filtteroidut.add(juna);
+                        }
+
                     }
                 }
                 for (Juna train : filtteroidut) {
                     for (int i = 0; i < juna.timeTableRows.size(); i++) {
                         if (juna.timeTableRows.get(i).stationShortCode.equals(paate) && juna.timeTableRows.get(i).scheduledTime.compareTo(new Date()) > 0) {
-                            System.out.println(juna.toString());
+                            System.out.println(juna.tulostaJuna(lahto, paate));
                         }
                     }
                 }
