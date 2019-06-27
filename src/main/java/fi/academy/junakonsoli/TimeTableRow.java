@@ -24,7 +24,6 @@ public class TimeTableRow {
         String estimateSource;
 
 
-
     public String getStationShortCode() {
             return stationShortCode;
         }
