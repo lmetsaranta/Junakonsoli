@@ -59,6 +59,7 @@ public class Juna {
         for (TimeTableRow rivi: timeTableRows) {
             if (rivi.stationShortCode.equals(asema) && rivi.type.equals("ARRIVAL")) {
                 paateasema = rivi.stationShortCode;
+                break;
             }
         }
         return paateasema;
@@ -69,6 +70,7 @@ public class Juna {
         for (TimeTableRow rivi: timeTableRows) {
             if (rivi.stationShortCode.equals(asema) && rivi.type.equals("ARRIVAL")) {
                 saapumisaika = rivi.scheduledTime;
+                break;
             }
         }
         return saapumisaika;
