@@ -4,6 +4,7 @@ package fi.academy.junakonsoli;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -20,7 +21,7 @@ public class Toiminnallisuus {
     lähtö- ja pääteaseman perusteella. Metodi saa parametrina lähtö- ja pääteaseman tunnukset. */
     public static void haeJunatAsemienPerusteella(String lahto, String paate) {
         if (lahto.equals(paate)) {
-            System.out.println("Virheellinen syöte");
+            System.err.println("Virheellinen syöte");
         } else {
             String baseurl = "https://rata.digitraffic.fi/api/v1";
             try {
@@ -31,7 +32,7 @@ public class Toiminnallisuus {
                 junat.stream()
                         .forEach(j -> System.out.println(j.tulostaJuna(lahto, paate)));
             } catch (Exception ex) {
-                System.out.println("Valitettavasti valitsemaltasi väliltä ei löytynyt yhtään junaa.");
+                System.err.println("Valitettavasti valitsemaltasi väliltä ei löytynyt yhtään junaa.");
             }
         }
     }
@@ -50,7 +51,7 @@ public class Toiminnallisuus {
             junat.stream()
                     .forEach(j -> System.out.println(j));
         } catch (Exception ex) {
-            System.out.println(ex);
+            System.err.println("Antamallasi numerolla ei löytynyt yhtään junaa.");
         }
     }
 
@@ -94,6 +95,7 @@ public class Toiminnallisuus {
             System.err.println("Haku ei onnistunut. Yritä myöhemmin uudelleen tai muuta antamiasi hakuehtoja.");
         }
     }
+
     // Metodi hakee junien JSON-datan REST-API:sta.
     private static List<Juna> getJunaJSON(String baseurl) throws IOException {
         URL url = new URL(URI.create(String.format("%s/trains/" + LocalDate.now(), baseurl)).toASCIIString());
