@@ -4,6 +4,7 @@ package fi.academy.junakonsoli;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -94,6 +95,7 @@ public class Toiminnallisuus {
             System.err.println("Haku ei onnistunut. Yritä myöhemmin uudelleen tai muuta antamiasi hakuehtoja.");
         }
     }
+
     // Metodi hakee junien JSON-datan REST-API:sta.
     private static List<Juna> getJunaJSON(String baseurl) throws IOException {
         URL url = new URL(URI.create(String.format("%s/trains/" + LocalDate.now(), baseurl)).toASCIIString());
